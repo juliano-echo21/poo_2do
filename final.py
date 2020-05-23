@@ -130,7 +130,7 @@ def ingresar_cliente():
     #se tiene un diccionrario que va a ser llenado con los datos ingresados
 
     for ele in d:
-        if ele == "Cédula" or ele == "Teléfono": #para estos dos parametros los valida con la funcion entrada
+        if ele == "Cedula" or ele == "Telefono": #para estos dos parametros los valida con la funcion entrada
             d[ele] = entrada(ele, int)
         else:
             d[ele] = entrada(ele, str)
