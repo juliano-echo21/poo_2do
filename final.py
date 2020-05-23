@@ -145,7 +145,7 @@ def ingresar_cliente():
 def ingresar_vehiculo():
     d = {"Placa": "", "Marca": "", "Modelo": "", "Cilindraje": "", "Color": "", "Tipo de sercivio": "",
          "Tipo de compustible": "",
-         "Numero de pasajeros": "", "Capacidad de Carga": "", "Numero de chasis": "", "NÃºmero de motor": ""}
+         "Numero de pasajeros": "", "Capacidad de Carga": "", "Numero de chasis": "", "Número de motor": ""}
          #en un diccionario se guardan todas las caracteristicas de un carro
     for ele in d: #recorre cada llave del diccionario, y el valor va a ser e ingresado por el usuario
         if ele == "Numero de pasajeros" or ele == "Capacidad de Carga" or ele == "Numero de chasis" or ele == "Numero de motor":
@@ -211,7 +211,7 @@ def mostrar_carros(): #funcion que muestra los carros (placa y marca puede ser a
 def mostrar_clientes():       
     Tabla = """\
 +---------------------------------------+
-| NOMBRE        APELLIDO        CÃ‰DULA  |
+| NOMBRE        APELLIDO        CÉDULA  |
 |---------------------------------------|
 {}
 +---------------------------------------+\
@@ -381,7 +381,7 @@ def id_factura(): #cuenta el numero de lineas en la base de datos facturas y lo 
 def buscar():
      menu = """\
 +------------------------------------------------------------+
-|                         BÃšSQUEDA                           |
+|                         BÚSQUEDA                           |
 |------------------------------------------------------------|
 |                EN QUE MODULO  DESEA BUSCAR?                |
 |1. CLIENTES                                                 |
