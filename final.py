@@ -425,8 +425,8 @@ def buscar():
                 print("LA CÉDULA {0} NO ESTA REGISTRADA".format(identificacion))
             
             else:
-                 with open("clientes.csv") as clientes:
-                     lector = csv.reader(clientes)
+                 with open("clientes.csv") as clientes: # esto es un comentario desde objetos
+                     lector = csv.reader(clientes) # los cambios se crean?
                      for ele in lector:
                     
                          if ele[2]== identificacion:
