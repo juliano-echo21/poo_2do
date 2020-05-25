@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QApplication # esto me permite trabajarlo como aplicacion
+from PyQt5.QtWidgets import QLabel 
+from PyQt5.QtWidgets import QWidget #importar lo necesario para trabajar con widgets
 
 app = QApplication([])
 
