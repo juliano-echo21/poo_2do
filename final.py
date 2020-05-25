@@ -24,6 +24,7 @@ def buscar_carros(): #funcion que permite buscar y ordenar los carros
 #%%
 def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una tabla que muestra por cual parÃ¡metro organizar
     if p=="v":
+        
         menu = """\
 +-----------------------------+
 |     SELECCIONE PARAMETRO    |
@@ -43,6 +44,7 @@ def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una ta
 """     
         
     elif p=="s":
+        
         menu = """\
 +-----------------------------+
 |     SELECCIONE PATAMETRO    |
@@ -385,7 +387,7 @@ def buscar():
 |------------------------------------------------------------|
 |                EN QUE MODULO  DESEA BUSCAR?                |
 |1. CLIENTES                                                 |
-|2. VEHICULO                                                |
+|2. VEHICULO                                                 |
 |3. SERVICIOS                                                |
 |4. FACTURAS                                                 |
 +------------------------------------------------------------+\
@@ -412,7 +414,7 @@ def buscar():
 | DIRECCION: {4} 
 +-------------------------------------------------|
 """
-         identificacion = input("INGRESE CÃ‰DULA: ")
+         identificacion = input("INGRESE CÉDULA: ")
         
          with open("clientes.csv") as clientes:
             lector = csv.reader(clientes)
@@ -420,7 +422,7 @@ def buscar():
             lista_ids= [i[2] for i in lector]
             
             if identificacion not in lista_ids:
-                print("LA CÃ‰DULA {0} NO ESTA REGISTRADA".format(identificacion))
+                print("LA CÉDULA {0} NO ESTA REGISTRADA".format(identificacion))
             
             else:
                  with open("clientes.csv") as clientes:
