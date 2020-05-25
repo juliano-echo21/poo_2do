@@ -480,7 +480,7 @@ def buscar():
 +-------------------------------------------------|
 """
 
-       codigo = input("INGRESE CODIGO SERVICIO: ")
+       codigo = input("INGRESE CODIGO  DEL SERVICIO: ")
         
        with open("servicios.csv") as servicios:
             lector = csv.reader(servicios)
