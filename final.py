@@ -425,8 +425,8 @@ def buscar():
                 print("LA C…DULA {0} NO ESTA REGISTRADA".format(identificacion))
             
             else:
-                 with open("clientes.csv") as clientes:
-                     lector = csv.reader(clientes)
+                 with open("clientes.csv") as clientes: # esto es un comentario desde objetos
+                     lector = csv.reader(clientes) # los cambios se crean?
                      for ele in lector:
                     
                          if ele[2]== identificacion:
@@ -571,7 +571,7 @@ def menu_de_base_de_datos(): #es la funci√≥n en donde de acuerdo a la entred del
         opcion = entrada('una opcion: ', int)
         
         if opcion==0: #si la entrada es cero el programa termina de ejecutarse
-            print("GRACIAS POR ELEGIRNOS, VUELVA PRONTO")
+            print("GRACIAS POR ELEGIRNOS, VUELVA PRONTO") #fuuuuu estoy en objetos
             break
         
         f = d.get(opcion, None)   #se obtiene la funcion y se ejecuta, si la entrada es erronea
