@@ -574,7 +574,7 @@ def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del
             print("GRACIAS POR ELEGIRNOS, VUELVA PRONTO")
             break
         
-        f = d.get(opcion, None)   #se obtiene la funcion y se ejecuta, si la entrada es errónea
+        f = d.get(opcion, None)   #se obtiene la funcion y se ejecuta, si la entrada es erronea
                                   #se pide que se ingrese nuevamente   
         if f:
             f()
