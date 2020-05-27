@@ -1,4 +1,7 @@
-import csv # módulo que nos deja manipular archivos csv, csv es un tipo de archivo que organiza datos en filas, y columnas son separadas por comas
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+import csv # mdulo que nos deja manipular archivos csv, csv es un tipo de archivo que organiza datos en filas, y columnas son separadas por comas
 
 def buscar_carros(): #funcion que permite buscar y ordenar los carros
     mostrar_busqueda("v")
@@ -37,7 +40,7 @@ def buscar_carros(): #funcion que permite buscar y ordenar los carros
 
 #buscar_carros()     
 #%%
-def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una tabla que muestra por cual parámetro organizar
+def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una tabla que muestra por cual parametro organizar
     if p=="v":
         
         menu = """\
@@ -62,7 +65,7 @@ def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una ta
         
         menu = """\
 +-----------------------------+
-|     SELECCIONE PATAMETRO    |
+|     SELECCIONE PARAMETRO    |
 |-----------------------------|
 |1. CODIGO                    |
 |2. NOMBRE DEL SERVICIO       |
@@ -85,7 +88,7 @@ def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una ta
     print(menu)
     
   
-def buscar_cliente():  # funcion busca y ordena los clientes por cualquier parámetro
+def buscar_cliente():  # funcion busca y ordena los clientes por cualquier parametro
     mostrar_busqueda("c")
     parametro=entrada('el parametro: ',int)
     Tabla = """\
@@ -102,7 +105,7 @@ def buscar_cliente():  # funcion busca y ordena los clientes por cualquier pará
         if parametro in (3,4):
             orden = sorted(lista,key=lambda x: int(x[parametro-1]))
         else:  
-            orden = (sorted(lista,key=lambda x: x[parametro-1])) #ordena la lista de acuerdo al parámetro ingresado
+            orden = (sorted(lista,key=lambda x: x[parametro-1])) #ordena la lista de acuerdo al parametro ingresado
                
         Tabla = (Tabla.format('\n'.join("| {:<14} {:8} {:>10} {:>14}     {:<14}   |".format(*row)
                                     for row in orden)))  
@@ -110,7 +113,7 @@ def buscar_cliente():  # funcion busca y ordena los clientes por cualquier pará
          #va añadiendo a tabla line apor linea de manera ordenada           
             
 #%%
-def buscar_servicio(): # funcion busca y ordena los servicios por cualquier parámetro
+def buscar_servicio(): # funcion busca y ordena los servicios por cualquier parametro
     mostrar_busqueda("s")
     parametro=entrada('el parametro',int)
     Tabla = """\
@@ -162,7 +165,7 @@ def ingresar_cliente():
         lapiz = csv.writer(clientes)
         lapiz.writerow([d[ele] for ele in d]) #escribe una linea con los datos que estan en el diccionario
                                               #escribe una linea que es una lista
-# ingresar vehículo a la base de datos
+# ingresar vehiculo a la base de datos
 
 #%%
 def ingresar_vehiculo():
@@ -185,7 +188,7 @@ def ingresar_vehiculo():
 # ingresar los servicios a manejar
 def ingresar_servicio():
     d = {"Codigo del servicio": "", "Nombre del servicio": "", "Precio unitario": "", "Horas de Servicio": ""}
-  #en undiccionario se guardan las características de un servicio
+  #en undiccionario se guardan las caracteri�sticas de un servicio
   #el usuario ingresa uno a uno
     for ele in d:
         if ele == "Nombre del servicio":
@@ -215,7 +218,7 @@ def mostrar_servicios(): #es la funcion que permite ver los servicio en el orden
         print(Tabla) 
 #%%
 
-def mostrar_carros(): #funcion que muestra los carros (placa y marca puede ser algo más)
+def mostrar_carros(): #funcion que muestra los carros (placa y marca puede ser algo mas)
     Tabla = """\
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 |   Placa  |  Marca   |  Modelo  | Cilindraje |   Color    |   Tipo de Servicio   |Tipo de combustible |   # Pasajeros   |   C. de Carga  |   # Chasis    |   # Motor    |
@@ -270,10 +273,10 @@ def selec_servicio(): #uncion que permite ver y seleccionar los servicios desead
                 break
             else:
                 print("\n EL SERVICIO CON CODIGO {0} NO EST� REGISTRADO, INTENTE OTRA VEZ".format(codigo))
-                #no permitirá avanzar hasta que el servicio que digite sea correcto
+                #no permitira avanzar hasta que el servicio que digite sea correcto
         lista_servicios.append(codigo) #añade el codigo delservicio a la lista
         s = input("Desea seleccionar algun otro servicio?\n 1.Sͭ \n 0.No \n")
-        #hasta que el usuario no desee seleccionar más
+        #hasta que el usuario no desee seleccionar mas
     return lista_servicios
 
 
@@ -300,15 +303,15 @@ def selec_carro():  # retorna el carro seleccionado, primero muestra los carros 
         
     return placa
 
-def carro_existe(entrada): #verifica si el carro está registrado
+def carro_existe(entrada): #verifica si el carro esta registrado
     with open("carros.csv") as carros:
         lector=csv.reader(carros)
         lista_placas=[i[0] for i in lector ] #crea una lista con las placas de los carros
         
-        return entrada in lista_placas #si la placa ingresa está registra retorna verdadero, de lo contrario, retorna falso
+        return entrada in lista_placas #si la placa ingresa esta registra retorna verdadero, de lo contrario, retorna falso
     
 #%%
-def cliente_existe(entrada): #verifica si el cliente está registrado
+def cliente_existe(entrada): #verifica si el cliente esta registrado
     with open("clientes.csv") as clientes:
         lector=csv.reader(clientes)
         lista_id=[i[2] for i in lector ] #crea un alista con los id de los clientes registrados
@@ -330,7 +333,7 @@ def solicitar_servicio(): #funcion que permite solicitar un servicio
         
     nombre_cliente= encontrar_nombre(cliente_id) #llama a la funcion encontrar_nombre para asociar el nombre y el id
     
-   # cliente = entrada("Ingrese número identidad: ", int)
+   # cliente = entrada("Ingrese numero identidad: ", int)
 
     vehiculo = selec_carro() #llama a la funcion selec_carro para guardar el carro seleccionado 
 
@@ -353,16 +356,16 @@ def generar_factura(cliente_id,nombre_cliente,vehiculo,l_servicios): #con los pa
             lector= csv.reader(servicios)
             
             for row in lector: #si el codigo del servicio coincide con el codigo en la linea en el archivo
-                              #añade a la cadena el nombre del servicio
+                              #a�ade a la cadena el nombre del servicio
                 if row[0]==ele:
-                    s+=row[1]+", " #añade a la cadena el nombre del servicio
+                    s+=row[1]+", " #a�de a la cadena el nombre del servicio
                     total+=int(row[2]) #el valor 2 de la fila corresponde al precio
                     break #encuentr el servicio y sale del bucle
    
                     
     with open ("facturas.csv","a",newline="") as facturas:
         lapiz=csv.writer(facturas)# abre la base de datos de las facturas y escribe escribe un linea
-                                  # con el numero de factura, el id del cliente, el nombre, el vehículo, los servicios
+                                  # con el numero de factura, el id del cliente, el nombre, el vehi�culo, los servicios
                                     # y el precio total
         
         lapiz.writerow([id_factura(),cliente_id,nombre_cliente,vehiculo,s,total]) 
@@ -394,7 +397,7 @@ def imprimir_factura():
         print("\n NO EXISTE NINGUNA FACTURA \n")  
                         
 #%%
-def encontrar_nombre(cliente_id): #de acuerdo a la cedula ingresada se asocia al nombre del cliente para su facturación
+def encontrar_nombre(cliente_id): #de acuerdo a la cedula ingresada se asocia al nombre del cliente para su facturacion
     
     with open("clientes.csv") as clientes:
         lector= csv.reader(clientes)
@@ -405,7 +408,7 @@ def encontrar_nombre(cliente_id): #de acuerdo a la cedula ingresada se asocia al
                 return cadena_nombre        
  
     
-def id_factura(): #cuenta el numero de lineas en la base de datos facturas y lo retorna, así sabe que id va a ser la siguiente factura
+def id_factura(): #cuenta el numero de lineas en la base de datos facturas y lo retorna, asi� sabe que id va a ser la siguiente factura
     facturas=open("facturas.csv")
     lineas= len(facturas.readlines())
     return lineas+1   
@@ -587,7 +590,7 @@ def mostrar_menu(): #cuando se llama a esta funcion muestra todas las funcionali
     print(menu)    
 #%%        
         
-def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del usuario se hace lo que se pide
+def menu_de_base_de_datos(): #es la funcion en donde de acuerdo a la entred del usuario se hace lo que se pide
                               #por medio de llamar a la funcion correspondiente
     mostrar = """\
             \n
@@ -614,7 +617,7 @@ def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del
         
         if opcion==0: #si la entrada es cero el programa termina de ejecutarse
             
-            print(mostrar) #fuuuuu estoy en objetos
+            print(mostrar) 
             break
         
         f = d.get(opcion, None)   #se obtiene la funcion y se ejecuta, si la entrada es erronea
