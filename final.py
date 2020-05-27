@@ -5,23 +5,37 @@ def buscar_carros(): #funcion que permite buscar y ordenar los carros
     
     parametro= entrada('el parametro: ',int) # toma el parametro a ordenar la lista
     Tabla = """\
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-| Placa | Marca  | Modelo | Cilindraje | Color  | Tipo de Servicio |Tipo de combustible | # Pasajeros | C. de Carga |   # Chasis    |  # Motor  |
-|-----------------------------------------------------------------------------------------------------------------------------------------------|
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   Placa  |  Marca   |  Modelo  | Cilindraje |   Color    |   Tipo de Servicio   |Tipo de combustible |   # Pasajeros   |   C. de Carga  |   # Chasis    |   # Motor    |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 {}
-+-----------------------------------------------------------------------------------------------------------------------------------------------+\
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\
 """  
 #es el formato con el que se imprimiran los datos
 
     with open("carros.csv", "r") as carros:
         lector = csv.reader(carros) 
         lista =list(lector) #el objeto lector lo convierte en una lista para posteiormente orndenarla 
-        orden = (sorted(lista,key=lambda x: x[parametro-1]))
-        Tabla = (Tabla.format('\n'.join("| {:<7} {:<9} {:<9} {:<9} {:<9} {:>11} {:>17} {:>15} {:>12} {:>15} {:>17} |".format(*row)
+        if parametro in (8,9):
+            
+            orden = sorted(lista,key=lambda x: int(x[parametro-1]))
+        else:    
+            orden = sorted(lista,key=lambda x: x[parametro-1])
+        
+        
+        for ele in orden:
+            for i in range(len(ele)):
+                if i ==5:
+                    ele[i]= ele[i].center(15)
+                elif i==10:
+                    ele[i]= ele[i].center(11)
+                    
+                    
+        Tabla = (Tabla.format('\n'.join("| {:<10} {:<12} {:<9} {:<12} {:<9} {:>19} {:>17} {:>15} {:>17} {:>19} {:>17}".format(*row)+" |"
                                     for row in orden))) 
         print(Tabla)
 
-buscar_carros()     
+#buscar_carros()     
 #%%
 def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una tabla que muestra por cual parámetro organizar
     if p=="v":
@@ -85,7 +99,10 @@ def buscar_cliente():  # funcion busca y ordena los clientes por cualquier pará
     with open("clientes.csv", "r") as clientes:
         lector = csv.reader(clientes)
         lista =list(lector)
-        orden = (sorted(lista,key=lambda x: x[parametro-1])) #ordena la lista de acuerdo al parámetro ingresado
+        if parametro in (3,4):
+            orden = sorted(lista,key=lambda x: int(x[parametro-1]))
+        else:  
+            orden = (sorted(lista,key=lambda x: x[parametro-1])) #ordena la lista de acuerdo al parámetro ingresado
                
         Tabla = (Tabla.format('\n'.join("| {:<14} {:8} {:>10} {:>14}     {:<14}   |".format(*row)
                                     for row in orden)))  
@@ -106,7 +123,10 @@ def buscar_servicio(): # funcion busca y ordena los servicios por cualquier par�
     with open("servicios.csv", "r") as servicios:
         lector = csv.reader(servicios)
         lista =list(lector)
-        orden = (sorted(lista,key=lambda x: x[parametro-1]))
+        if parametro in (1,3,4):
+            orden = sorted(lista,key=lambda x: int(x[parametro-1]))
+        else:
+            orden = sorted(lista,key=lambda x: x[parametro-1])
         
         Tabla = (Tabla.format('\n'.join("| {:<8} {:^18} {:>10} {:>19}       |".format(*row)
                                     for row in orden))) 
@@ -197,19 +217,28 @@ def mostrar_servicios(): #es la funcion que permite ver los servicio en el orden
 
 def mostrar_carros(): #funcion que muestra los carros (placa y marca puede ser algo más)
     Tabla = """\
-+----------------------------------------------------------------------------------------------------------------------------------------+
-| Placa   Marca    Modelo   Cilindraje   Color    Tipo de Servicio  Tipo de combustible | # Pasajeros | C. de Carga |# Chasis |  # Motor |
-|----------------------------------------------------------------------------------------------------------------------------------------|
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|   Placa  |  Marca   |  Modelo  | Cilindraje |   Color    |   Tipo de Servicio   |Tipo de combustible |   # Pasajeros   |   C. de Carga  |   # Chasis    |   # Motor    |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 {}
-+----------------------------------------------------------------------------------------------------------------------------------------+\
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+\
 """  
-    with open ("carros.csv") as nuevo:
-        l= csv.reader(nuevo)
-     
-        Tabla = (Tabla.format('\n'.join("| {:<7} {:<9} {:<9} {:<9} {:<9} {:>11} {:>17} {:>15} {:>12} {:>15} {:>10} |".format(*row)
-                                    for row in l)))  
-
-        print(Tabla)         
+    with open("carros.csv", "r") as carros:
+        lector = csv.reader(carros) 
+        lista =list(lector) #el objeto lector lo convierte en una lista para posteiormente orndenarla 
+    
+        for ele in lista:
+            for i in range(len(ele)):
+                if i ==5:
+                    ele[i]= ele[i].center(15)
+                elif i==10:
+                    ele[i]= ele[i].center(11)
+                    
+                    
+        Tabla = (Tabla.format('\n'.join("| {:<10} {:<12} {:<9} {:<12} {:<9} {:>19} {:>17} {:>15} {:>17} {:>19} {:>17}".format(*row)+" |"
+                                    for row in lista))) 
+        print(Tabla)     
+      
 #%%
 def mostrar_clientes():       
     Tabla = """\
@@ -235,15 +264,15 @@ def selec_servicio(): #uncion que permite ver y seleccionar los servicios desead
         mostrar_servicios()
 
         while True:
-            codigo= input("Ingrese Código de servicio: ")
+            codigo= input("Ingrese C�digo de servicio: ")
         
             if servicio_existe(codigo): #llama a la funcion servicio_existe que valida si efectivamente el servicio esta registrado
                 break
             else:
-                print("\n EL SERVICIO CON CODIGO {0} NO ESTÁ REGISTRADO, INTENTE OTRA VEZ".format(codigo))
+                print("\n EL SERVICIO CON CODIGO {0} NO EST� REGISTRADO, INTENTE OTRA VEZ".format(codigo))
                 #no permitirá avanzar hasta que el servicio que digite sea correcto
         lista_servicios.append(codigo) #añade el codigo delservicio a la lista
-        s = input("Desea seleccionar algun otro servicio?\n 1.Sí \n 0.No \n")
+        s = input("Desea seleccionar algun otro servicio?\n 1.Sͭ \n 0.No \n")
         #hasta que el usuario no desee seleccionar más
     return lista_servicios
 
@@ -405,6 +434,7 @@ def buscar():
     
      if opcion=="1":
          menu = """\
+             \n
 +-------------------------------------------------+
 |                  DATOS CLIENTE                  |
 |-------------------------------------------------|
@@ -415,7 +445,7 @@ def buscar():
 | DIRECCION: {4} 
 +-------------------------------------------------|
 """
-         identificacion = input("INGRESE C�DULA: ")
+         identificacion = input("\n INGRESE C�DULA: ")
         
          with open("clientes.csv") as clientes:
             lector = csv.reader(clientes)
@@ -423,7 +453,7 @@ def buscar():
             lista_ids= [i[2] for i in lector]
             
             if identificacion not in lista_ids:
-                print("LA C�DULA {0} NO ESTA REGISTRADA".format(identificacion))
+                print("\n LA C�DULA {0} NO ESTA REGISTRADA \n".format(identificacion))
             
             else:
                  with open("clientes.csv") as clientes: # esto es un comentario desde objetos
@@ -438,6 +468,7 @@ def buscar():
      
      elif opcion =="2":
           menu = """\
+               \n
 +-------------------------------------------------+
 |                  DATOS VEHICULO                  |
 |-------------------------------------------------|
@@ -448,7 +479,7 @@ def buscar():
 | COLOR : {4}
 +-------------------------------------------------|
 """
-          placa = input("INGRESE PLACA: ")
+          placa = input("\n INGRESE PLACA: ")
         
           with open("carros.csv") as carros:
             lector = csv.reader(carros)
@@ -471,6 +502,7 @@ def buscar():
     
      elif opcion =="3":
        menu = """\
+           \n
 +-------------------------------------------------+
 |                  DATOS SERVCIO                  |
 |-------------------------------------------------|
@@ -481,14 +513,14 @@ def buscar():
 +-------------------------------------------------|
 """
 
-       codigo = input("INGRESE CODIGO  DEL SERVICIO: ")
+       codigo = input("\n INGRESE CODIGO  DEL SERVICIO: ")
         
        with open("servicios.csv") as servicios:
             lector = csv.reader(servicios)
             lista_codigos= [i[0] for i in lector]
             
             if codigo not in lista_codigos:
-                print("EL COGIDO {0} NO ESTA REGISTRADO".format(codigo))
+                print("\n EL COGIDO {0} NO ESTA REGISTRADO".format(codigo))
             else:
                 with open("servicios.csv") as servicios:
                     lector = csv.reader(servicios)
@@ -500,6 +532,7 @@ def buscar():
     
      elif opcion =="4":
         menu = """\
+            \n
 +-------------------------------------------------+
 |                  DATOS SERVCIO                  |
 |-------------------------------------------------|
@@ -511,14 +544,14 @@ def buscar():
 | PRECIO TOTAL: {5}
 +-------------------------------------------------|
 """
-        num = input("INGRESE Nro DE FACTURA: ")
+        num = input("\n INGRESE Nro DE FACTURA: ")
         try:  
          with open("facturas.csv") as facturas:
                 lector = csv.reader(facturas)
                 lista_num= [i[0] for i in lector]
                 
                 if num not in lista_num:
-                    print("LA FACTURA {0} NO EXISTE".format(num))
+                    print("\n LA FACTURA {0} NO EXISTE \n".format(num))
                 else:
                      with open("facturas.csv") as facturas:
                          lector = csv.reader(facturas)
@@ -526,7 +559,7 @@ def buscar():
                              if ele[0]== num:
                                  print(menu.format(ele[0],ele[1],ele[2],ele[3],ele[4],ele[5]))
         except:
-            print("NO EXISTE NINGUNA FACTURA")
+            print("\n NO EXISTE NINGUNA FACTURA \n")
         
         
 
@@ -534,6 +567,7 @@ def buscar():
 #%%
 def mostrar_menu(): #cuando se llama a esta funcion muestra todas las funcionalidades del programa en formato de menu
     menu = """\
+        \n
 +------------------------------------------------------------+
 |               BIENVENID@ AL CONCESIONARIO UNAL             |
 |------------------------------------------------------------|
@@ -555,6 +589,13 @@ def mostrar_menu(): #cuando se llama a esta funcion muestra todas las funcionali
         
 def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del usuario se hace lo que se pide
                               #por medio de llamar a la funcion correspondiente
+    mostrar = """\
+            \n
++-------------------------------------------------+
+|     GRACIAS POR ELEGIRNOS, VUELVA PRONTO        |
+|-------------------------------------------------|
+    """ 
+    
     while True:    
         mostrar_menu()
         d = {
@@ -572,7 +613,8 @@ def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del
         opcion = entrada('una opcion: ', int)
         
         if opcion==0: #si la entrada es cero el programa termina de ejecutarse
-            print("GRACIAS POR ELEGIRNOS, VUELVA PRONTO") #fuuuuu estoy en objetos
+            
+            print(mostrar) #fuuuuu estoy en objetos
             break
         
         f = d.get(opcion, None)   #se obtiene la funcion y se ejecuta, si la entrada es erronea
