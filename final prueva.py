@@ -1,15 +1,16 @@
 import csv # módulo que nos deja manipular archivos csv, csv es un tipo de archivo que organiza datos en filas, y columnas son separadas por comas
-
+import os# aunque cuenta con muhas carcteristicas solo sera usada para borrar pantalla de la consola y no hay que instalar ningun paquete por aparte
 def buscar_carros(): #funcion que permite buscar y ordenar los carros
+    os.system("cls")  # limpia la consola
     mostrar_busqueda("v")
     
     parametro= entrada('el parametro: ',int) # toma el parametro a ordenar la lista
     Tabla = """\
-+-----------------------------------------------------------------------------------------------------------------------------------------------+
-| Placa | Marca  | Modelo | Cilindraje | Color  | Tipo de Servicio |Tipo de combustible | # Pasajeros | C. de Carga |   # Chasis    |  # Motor  |
-|-----------------------------------------------------------------------------------------------------------------------------------------------|
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Placa   Marca    Modelo   Cilindraje   Color    Tipo de Servicio  Tipo de combustible | # Pasajeros | C. de Carga |# Chasis |  # Motor |
+|----------------------------------------------------------------------------------------------------------------------------------------|
 {}
-+-----------------------------------------------------------------------------------------------------------------------------------------------+\
++----------------------------------------------------------------------------------------------------------------------------------------+\
 """  
 #es el formato con el que se imprimiran los datos
 
@@ -17,18 +18,17 @@ def buscar_carros(): #funcion que permite buscar y ordenar los carros
         lector = csv.reader(carros) 
         lista =list(lector) #el objeto lector lo convierte en una lista para posteiormente orndenarla 
         orden = (sorted(lista,key=lambda x: x[parametro-1]))
-        Tabla = (Tabla.format('\n'.join("| {:<7} {:<9} {:<9} {:<9} {:<9} {:>11} {:>17} {:>15} {:>12} {:>15} {:>17} |".format(*row)
-                                    for row in orden))) 
+        Tabla = (Tabla.format('\n'.join("| {:<7} {:<9} {:<9} {:<9} {:<9} {:>11} {:>17} {:>15} {:>12} {:>15} {:>10} |".format(*row)
+                                    for row in orden)))
+        os.system("cls")
         print(Tabla)
-
-buscar_carros()     
+        os.system("pause")#detiene el programa
 #%%
 def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una tabla que muestra por cual parámetro organizar
     if p=="v":
-        
         menu = """\
 +-----------------------------+
-|     SELECCIONE PARAMETRO    |
+|     SELECCIONE PARÁMETRO    |
 |-----------------------------|
 |1. PLACA                     |
 |2. MARCA                     |
@@ -45,12 +45,11 @@ def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una ta
 """     
         
     elif p=="s":
-        
         menu = """\
 +-----------------------------+
-|     SELECCIONE PATAMETRO    |
+|     SELECCIONE PARÁMETRO    |
 |-----------------------------|
-|1. CODIGO                    |
+|1. CÓDIGO                    |
 |2. NOMBRE DEL SERVICIO       |
 |3. PRECIO                    |
 |4. HORAS DE SERVICIO         |
@@ -59,27 +58,28 @@ def mostrar_busqueda(p): #de acuerdo al parametro que se le envia imprime una ta
     elif p=="c":
         menu = """\
 +-----------------------------+
-|     SELECCIONE PARAMAETRO   |
+|     SELECCIONE PARÁMETRO    |
 |-----------------------------|
 |1. NOMBRE                    |
 |2. APELLIDO                  |
-|3. CEDULA                    |
-|4. TELEFONO                  |
-|5. DIRECCION                 |
+|3. CÉDULA                    |
+|4. TELÉFONO                  |
+|5. DIRECCIÓN                 |
 +-----------------------------+\
     """  
     print(menu)
     
   
 def buscar_cliente():  # funcion busca y ordena los clientes por cualquier parámetro
+    os.system("cls")  # limpia la consola
     mostrar_busqueda("c")
     parametro=entrada('el parametro: ',int)
     Tabla = """\
-+------------------------------------------------------------------------+
-| NOMBRE        APELLIDO        CEDULA      TELEFONO      DIRECCION      |
-|------------------------------------------------------------------------|
++----------------------------------------------------------------------+
+| NOMBRE        APELLIDO        CÉDULA      TELÉFONO      DIRECCIÓN    |
+|----------------------------------------------------------------------|
 {}
-+------------------------------------------------------------------------+\
++----------------------------------------------------------------------+\
 """ 
 
     with open("clientes.csv", "r") as clientes:
@@ -87,18 +87,21 @@ def buscar_cliente():  # funcion busca y ordena los clientes por cualquier pará
         lista =list(lector)
         orden = (sorted(lista,key=lambda x: x[parametro-1])) #ordena la lista de acuerdo al parámetro ingresado
                
-        Tabla = (Tabla.format('\n'.join("| {:<14} {:8} {:>10} {:>14}     {:<14}   |".format(*row)
-                                    for row in orden)))  
+        Tabla = (Tabla.format('\n'.join("| {:<14} {:8} {:>10} {:>14} {:>14}     |".format(*row)
+                                    for row in orden)))
+        os.system("cls")
         print(Tabla)
+        os.system("pause")  # detiene el programa
          #va añadiendo a tabla line apor linea de manera ordenada           
             
 #%%
 def buscar_servicio(): # funcion busca y ordena los servicios por cualquier parámetro
+    os.system("cls")  # limpia la consola
     mostrar_busqueda("s")
     parametro=entrada('el parametro',int)
     Tabla = """\
 +------------------------------------------------------------------+
-| CODIGO         NOMBRE           PRECIO c/u      HORA DE SERVICIO |
+| CÓDIGO         NOMBRE           PRECIO c/u      HORA DE SERVICIO |
 |------------------------------------------------------------------|
 {}
 +------------------------------------------------------------------+\
@@ -109,9 +112,10 @@ def buscar_servicio(): # funcion busca y ordena los servicios por cualquier par�
         orden = (sorted(lista,key=lambda x: x[parametro-1]))
         
         Tabla = (Tabla.format('\n'.join("| {:<8} {:^18} {:>10} {:>19}       |".format(*row)
-                                    for row in orden))) 
+                                    for row in orden)))
+        os.system("cls")
         print(Tabla)
-        
+        os.system("pause")  # detiene el programa
 #%%
 # Funcion para aceptar o negar entradas
 #valida las entradas, de acuerdo a su tipo
@@ -120,20 +124,21 @@ def entrada(men, tipo):
     a = False
     while not a:
         try:
-            v = tipo(input("Ingrese " + str(men) +" "))
+            v = tipo(input("Ingrese " + str(men)))
             a = True
         except:
-            print("Entrada inv�lida, por favor intente de nuevo.")
+            print("Entrada inválida, por favor intente de nuevo.")
     return v
 #%%
 
 # Funcion para ingresar clientes a la base de datos
 def ingresar_cliente():
-    d = {"Nombre": "", "Apellido": "", "Cedula": "", "Telefono": "", "Direccion": ""}
+    os.system("cls")  # limpia la consola
+    d = {"Nombre": "", "Apellido": "", "Cédula": "", "Teléfono": "", "Dirección": ""}
     #se tiene un diccionrario que va a ser llenado con los datos ingresados
 
     for ele in d:
-        if ele == "Cedula" or ele == "Telefono": #para estos dos parametros los valida con la funcion entrada
+        if ele == "Cédula" or ele == "Teléfono": #para estos dos parametros los valida con la funcion entrada
             d[ele] = entrada(ele, int)
         else:
             d[ele] = entrada(ele, str)
@@ -146,12 +151,13 @@ def ingresar_cliente():
 
 #%%
 def ingresar_vehiculo():
+    os.system("cls")  # limpia la consola
     d = {"Placa": "", "Marca": "", "Modelo": "", "Cilindraje": "", "Color": "", "Tipo de sercivio": "",
          "Tipo de compustible": "",
-         "Numero de pasajeros": "", "Capacidad de Carga": "", "Numero de chasis": "", "N�mero de motor": ""}
+         "Número de pasajeros": "", "Capacidad de Carga": "", "Número de chasis": "", "Número de motor": ""}
          #en un diccionario se guardan todas las caracteristicas de un carro
     for ele in d: #recorre cada llave del diccionario, y el valor va a ser e ingresado por el usuario
-        if ele == "Numero de pasajeros" or ele == "Capacidad de Carga" or ele == "Numero de chasis" or ele == "Numero de motor":
+        if ele == "Número de pasajeros" or ele == "Capacidad de Carga" or ele == "Número de chasis" or ele == "Número de motor":
             d[ele] = entrada(ele, int)
         else:
             d[ele] = entrada(ele, str)
@@ -164,7 +170,8 @@ def ingresar_vehiculo():
 #%%
 # ingresar los servicios a manejar
 def ingresar_servicio():
-    d = {"Codigo del servicio": "", "Nombre del servicio": "", "Precio unitario": "", "Horas de Servicio": ""}
+    os.system("cls")  # limpia la consola
+    d = {"Código del servicio": "", "Nombre del servicio": "", "Precio unitario": "", "Horas de Servicio": ""}
   #en undiccionario se guardan las características de un servicio
   #el usuario ingresa uno a uno
     for ele in d:
@@ -181,7 +188,7 @@ def ingresar_servicio():
 def mostrar_servicios(): #es la funcion que permite ver los servicio en el orden en el que esten en el documento
     Tabla = """\
 +------------------------------------------------------------------+
-| CODIGO         NOMBRE           PRECIO c/u      HORA DE SERVICIO |
+| CÓDIGO         NOMBRE           PRECIO c/u      HORA DE SERVICIO |
 |------------------------------------------------------------------|
 {}
 +------------------------------------------------------------------+\
@@ -214,7 +221,7 @@ def mostrar_carros(): #funcion que muestra los carros (placa y marca puede ser a
 def mostrar_clientes():       
     Tabla = """\
 +---------------------------------------+
-| NOMBRE        APELLIDO        C�DULA  |
+| NOMBRE        APELLIDO        CÉDULA  |
 |---------------------------------------|
 {}
 +---------------------------------------+\
@@ -240,10 +247,10 @@ def selec_servicio(): #uncion que permite ver y seleccionar los servicios desead
             if servicio_existe(codigo): #llama a la funcion servicio_existe que valida si efectivamente el servicio esta registrado
                 break
             else:
-                print("\n EL SERVICIO CON CODIGO {0} NO ESTÁ REGISTRADO, INTENTE OTRA VEZ".format(codigo))
+                print("\n EL SERVICIO CON CÓDIGO {0} NO ESTÁ REGISTRADO, INTENTE OTRA VEZ".format(codigo))
                 #no permitirá avanzar hasta que el servicio que digite sea correcto
         lista_servicios.append(codigo) #añade el codigo delservicio a la lista
-        s = input("Desea seleccionar algun otro servicio?\n 1.Sí \n 0.No \n")
+        s = input("Desea seleccionar algún otro servicio?\n 1.Sí \n 0.No \n")
         #hasta que el usuario no desee seleccionar más
     return lista_servicios
 
@@ -262,7 +269,7 @@ def selec_carro():  # retorna el carro seleccionado, primero muestra los carros 
     while True:
         
         mostrar_carros()
-        placa= input("ingrese la placa de su vehiculo: ")
+        placa= input("ingrese la placa de su vehículo: ")
         
         if carro_existe(placa):
             break
@@ -289,15 +296,16 @@ def cliente_existe(entrada): #verifica si el cliente está registrado
             
 #%%
 def solicitar_servicio(): #funcion que permite solicitar un servicio
+    os.system("cls")  # limpia la consola
     while True: #hasta que no se ingrese un cliente que este registrado no avanza
         
         mostrar_clientes() #muestra todos los clientes para poder ver los ids
-        cliente_id=input("\n Ingrese numero identidad: ")
+        cliente_id=input("\n Ingrese número identidad: ")
         
         if cliente_existe(cliente_id): #llama a la funcion cliente_existe para saber si el cliente esta registrado
             break
         else:
-            print("EL CLIENTE CON ID {0} NO ESTA� REGISTRADO, INTENTE OTRA VEZ".format(cliente_id))
+            print("EL CLIENTE CON ID {0} NO ESTÁ REGISTRADO, INTENTE OTRA VEZ".format(cliente_id))
         
     nombre_cliente= encontrar_nombre(cliente_id) #llama a la funcion encontrar_nombre para asociar el nombre y el id
     
@@ -341,7 +349,7 @@ def generar_factura(cliente_id,nombre_cliente,vehiculo,l_servicios): #con los pa
 
 #%%
 def imprimir_factura():
-     
+    os.system("cls")  # limpia la consola
     try: #si el archivo no existe o esta vacio, genera excepcion y devuelve al menu principal
         with open("facturas.csv") as nuevo:
             lector= csv.reader(nuevo)
@@ -354,7 +362,7 @@ def imprimir_factura():
         FACTURA Nro: {0}                             
         CEDULA: {1}                                
         CLIENTE: {2}                      
-        PLACA VEHI�CULO: {3}                       
+        PLACA VEHÍCULO: {3}                       
         SERVICIOS: {4}                          
         PRECIO TOTAL: {5}                          
     +------------------------------------------------+\
@@ -380,21 +388,22 @@ def id_factura(): #cuenta el numero de lineas en la base de datos facturas y lo 
     facturas=open("facturas.csv")
     lineas= len(facturas.readlines())
     return lineas+1   
-#%%   
+#%%
+import csv    
 def buscar():
      menu = """\
 +------------------------------------------------------------+
-|                         B�SQUEDA                           |
+|                         BÚSQUEDA                           |
 |------------------------------------------------------------|
-|                EN QUE MODULO  DESEA BUSCAR?                |
+|                ¿EN QUÉ MÓDULO DESEA BUSCAR?                |
 |1. CLIENTES                                                 |
-|2. VEHICULO                                                 |
+|2. VEHÍCULOS                                                |
 |3. SERVICIOS                                                |
 |4. FACTURAS                                                 |
 +------------------------------------------------------------+\
 """
+     os.system("cls")
      print(menu)
-     
      opcion=input(("\n DIGITE: "))
     
      while opcion not in ["1","2","3","4"]:
@@ -415,7 +424,7 @@ def buscar():
 | DIRECCION: {4} 
 +-------------------------------------------------|
 """
-         identificacion = input("INGRESE C�DULA: ")
+         identificacion = input("INGRESE CÉDULA: ")
         
          with open("clientes.csv") as clientes:
             lector = csv.reader(clientes)
@@ -423,11 +432,11 @@ def buscar():
             lista_ids= [i[2] for i in lector]
             
             if identificacion not in lista_ids:
-                print("LA C�DULA {0} NO ESTA REGISTRADA".format(identificacion))
+                print("LA CÉDULA {0} NO ESTA REGISTRADA".format(identificacion))
             
             else:
-                 with open("clientes.csv") as clientes: # esto es un comentario desde objetos
-                     lector = csv.reader(clientes) # los cambios se crean?
+                 with open("clientes.csv") as clientes:
+                     lector = csv.reader(clientes)
                      for ele in lector:
                     
                          if ele[2]== identificacion:
@@ -455,7 +464,7 @@ def buscar():
             lista_placas= [i[0] for i in lector]
             
             if placa not in lista_placas:
-                print("\n LA PLACA {0} NO ESTA REGISTRADA".format(placa))
+                print("LA PLACA {0} NO ESTA REGISTRADA".format(placa))
             
             else:
                 with open("carros.csv") as carros:
@@ -537,20 +546,21 @@ def mostrar_menu(): #cuando se llama a esta funcion muestra todas las funcionali
 +------------------------------------------------------------+
 |               BIENVENID@ AL CONCESIONARIO UNAL             |
 |------------------------------------------------------------|
-|                   ESTE ES NUESTRO MEN�                     |
+|                   ESTE ES NUESTRO MENÚ                     |
 |1. REGISTRAR UN CARRO                                       |
 |2. REGITRAR UN CLIENTE                                      |
 |3. REGISTRAR UN SERVICIO                                    |
-|4. VER Y ORDENAR CARROS                                     |
-|5. VER Y ORDENAR CLIENTES                                   |
-|6. VER Y ORDENAR SERVICIOS                                  |
+|4. BUSCAR Y ORDENAR CARROS                                  |
+|5. BUSCAR Y ORDENAR CLIENTES                                |
+|6. BUSCAR Y ORDENAR SERVICIOS                               |
 |7. SOLICITAR SERVICIOS                                      |
 |8. IMPRIMIR FACTURAS                                        |
 |9. BUSCAR EN MODULO                                         |
 |0. SALIR                                                    |
 +------------------------------------------------------------+\
-"""  
-    print(menu)    
+"""
+    os.system("cls")
+    print(menu)
 #%%        
         
 def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del usuario se hace lo que se pide
@@ -569,10 +579,10 @@ def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del
             9: buscar
             }
         
-        opcion = entrada('una opcion: ', int)
+        opcion = entrada('una opción: ', int)
         
         if opcion==0: #si la entrada es cero el programa termina de ejecutarse
-            print("GRACIAS POR ELEGIRNOS, VUELVA PRONTO") #fuuuuu estoy en objetos
+            print("GRACIAS POR ELEGIRNOS, VUELVA PRONTO")
             break
         
         f = d.get(opcion, None)   #se obtiene la funcion y se ejecuta, si la entrada es errónea
@@ -583,5 +593,6 @@ def menu_de_base_de_datos(): #es la función en donde de acuerdo a la entred del
             print("ENTRADA INCORRECTA")         
             
             
-if __name__=="__main__":            
+if __name__=="__main__":
+
     menu_de_base_de_datos()
